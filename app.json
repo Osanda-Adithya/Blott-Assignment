@@ -1,4 +1,19 @@
 {
   "name": "BlotAssignment",
-  "displayName": "BlotAssignment"
+  "displayName": "BlotAssignment",
+  "plugins": [
+    [
+      "react-native-permissions",
+      {
+        "iosPermissions": [
+          "Notifications"
+        ]
+      }
+    ]
+  ],
+  "ios": {
+    "infoPlist": {
+      "NSUserNotificationsUsageDescription": "Notifications may include alerts, sounds, and icon badges. These can be configured in Settings."
+    }
+  }
 }

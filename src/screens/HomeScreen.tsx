@@ -21,7 +21,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 type homeScreenProps = NativeStackScreenProps<RootStack, 'HomeScreen'>;
 
-const HomeScreen: FC<homeScreenProps> = () => {
+const HomeScreen: FC<homeScreenProps> = ({navigation}) => {
   const dispatch = useDispatch<AppDispatch>();
   const {data, error} = useSelector((state: RootState) => state.news);
   const {firstname} = useSelector((state: RootState) => state.login);
@@ -29,6 +29,10 @@ const HomeScreen: FC<homeScreenProps> = () => {
   useEffect(() => {
     dispatch(fetchNews());
   }, [dispatch]);
+
+  const onItemPress = (url: string) => {
+    navigation.navigate('DetailScreen', {url});
+  };
 
   const renderItem = ({item}: {item: NewsResponse}) => {
     return (
@@ -38,6 +42,7 @@ const HomeScreen: FC<homeScreenProps> = () => {
           image={item.image}
           headline={item.headline}
           millisecond={item.datetime}
+          onPress={() => onItemPress(item.url)}
         />
       </View>
     );
@@ -49,8 +54,7 @@ const HomeScreen: FC<homeScreenProps> = () => {
       style={styles.gradientContainer}
       start={{x: 0, y: 0.21}}
       end={{x: 0, y: 0.3}}
-      locations={[0.5, 0.5]}
-      >
+      locations={[0.5, 0.5]}>
       <SafeAreaView style={styles.mainContainer}>
         <View style={styles.subContainer}>
           <Text style={styles.greeting}>Hey {firstname}</Text>
